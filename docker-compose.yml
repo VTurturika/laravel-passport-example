@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    volumes:
+      - ./apache.conf:/etc/apache2/sites-available/000-default.conf
+      - ./:/var/www/html
+    ports:
+      - 8080:80
+      - 3000:3000
+    links:
+      - database
+    environment:
+      XDEBUG_CONFIG: remote_host=172.17.0.1
+      PHP_IDE_CONFIG: "serverName=development"
+
+  database:
+    image: mysql:latest
+    volumes:
+      - .database/:/var/lib/mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
