@@ -8,7 +8,6 @@ services:
       - ./:/var/www/html
     ports:
       - 8080:80
-      - 3000:3000
     links:
       - database
     environment:
